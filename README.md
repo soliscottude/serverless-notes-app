@@ -1,8 +1,15 @@
 # 📝 Serverless Notes App
 
-A fully serverless, cloud-native notes application built with AWS Lambda, API Gateway, DynamoDB, CloudFront, and S3.
+A complete, production-style **serverless notes application** built on AWS, featuring:
 
-This project demonstrates a complete end-to-end serverless architecture, including backend logic, NoSQL database, API routing, and a fully deployed frontend.
+- AWS Lambda (Python) backend  
+- API Gateway (HTTP API) routing  
+- DynamoDB for persistent NoSQL storage  
+- A modern static frontend (HTML/CSS/JavaScript)  
+- Global hosting using S3 + CloudFront  
+- Automatic deployment using GitHub Actions  
+
+This project demonstrates a real-world serverless architecture from end to end, from frontend → API → compute → database → CI/CD → global CDN delivery.
 
 ---
 
@@ -18,19 +25,20 @@ This is the deployed version of the application using S3 and CloudFront.
 
 ## 📘 Overview
 
-A beautifully designed single-page notes application that lets users:
+This is a clean, single-page notes application powered entirely by serverless AWS services.  
 
-- Create notes
+Users can:
 
-- View notes (per user)
+- Create notes  
+- View notes by user  
+- Interact with a real backend API  
+- Use a fully deployed global frontend  
 
-- Persist data in DynamoDB
+The backend is built using **AWS Lambda + DynamoDB**, exposed through **API Gateway**, while the frontend is hosted on **S3** and distributed worldwide through **CloudFront** for high performance.
 
-- Trigger logic through API Gateway + Lambda
+All frontend updates are automatically deployed using **GitHub Actions**, providing a complete CI/CD workflow.
 
-- Use a fully deployed frontend served globally via CloudFront
-
-All components are serverless and scale automatically with zero maintenance.
+This project demonstrates practical cloud engineering skills, including serverless API design, infrastructure configuration, static hosting, IAM permissions, CI/CD automation, and scalable architecture patterns.
 
 ---
 

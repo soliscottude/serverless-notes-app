@@ -226,6 +226,48 @@ This forms a production-grade serverless deployment.
 
 ---
 
+## ⚙️ CI/CD – Automatic Frontend Deployment
+
+The frontend is automatically deployed using **GitHub Actions** whenever changes are pushed to the repository.
+
+### Workflow
+
+File: `.github/workflows/deploy-frontend.yml`
+
+The workflow:
+
+- Checks out the repository
+- Configures AWS credentials from GitHub Secrets
+- Syncs the `frontend/` folder to the S3 bucket
+- Invalidates the CloudFront cache so the latest version is served
+
+High-level steps:
+
+1. **AWS IAM user for CI/CD**
+   - Created a dedicated IAM user with permissions for:
+     - `s3:PutObject`, `s3:DeleteObject`, `s3:ListBucket` on the frontend S3 bucket
+     - `cloudfront:CreateInvalidation` on the CloudFront distribution
+   - Stored its keys as GitHub Secrets:
+     - `AWS_ACCESS_KEY_ID`
+     - `AWS_SECRET_ACCESS_KEY`
+
+2. **GitHub Actions workflow**
+   - Uses `aws-actions/configure-aws-credentials` to authenticate to AWS
+   - Runs `aws s3 sync frontend/ s3://<my-bucket> --delete` to deploy updated files
+   - Runs `aws cloudfront create-invalidation --distribution-id <my-distribution-id> --paths "/*"` to refresh the CDN
+
+3. **Trigger**
+   - The workflow is triggered on pushes to the `main` branch (and can be manually triggered via `workflow_dispatch`).
+
+This CI/CD setup means that updating the frontend is as simple as:
+
+- `git commit`  
+- `git push`  
+
+The website on CloudFront is automatically updated with the latest version.
+
+---
+
 ## 🧠 What I Learned
 
 - Designing a full serverless backend with Lambda

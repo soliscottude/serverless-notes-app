@@ -93,12 +93,19 @@ Amazon CloudFront (CDN)
 ## 🗂 Project Structure
 ```
 serverless-notes-app/
+│
 ├── lambda/
 │   └── notes_handler.py
+│
 ├── frontend/
 │   ├── index.html
 │   ├── style.css
 │   └── app.js
+│
+├── .github/
+│   └── workflows/
+│       └── deploy-frontend.yml
+│
 ├── README.md
 └── screenshots/
 ```

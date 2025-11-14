@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Serverless Notes App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Link the external CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- Main App Container -->
+  <div class="app">
+
+    <!-- Header Section -->
+    <div class="header">
+      <div>
+        <div class="title">Serverless Notes App</div>
+        <div class="subtitle">API Gateway · Lambda · DynamoDB</div>
+      </div>
+      <div class="pill">Portfolio Project</div>
+    </div>
+
+    <!-- Two-column layout -->
+    <div class="grid">
+
+      <!-- Left Card: Create Note -->
+      <div class="card">
+        <h2>Create a note</h2>
+
+        <div class="field">
+          <label for="user-id">User ID</label>
+          <input id="user-id" type="text" placeholder="e.g. scott" value="" />
+        </div>
+
+        <div class="field">
+          <label for="title">Title</label>
+          <input id="title" type="text" placeholder="My first serverless note" />
+        </div>
+
+        <div class="field">
+          <label for="content">Content</label>
+          <textarea id="content" placeholder="Write something here..."></textarea>
+        </div>
+
+        <!-- Create Button -->
+        <div class="button-row">
+          <button class="btn-primary" id="btn-create">＋ Create note</button>
+        </div>
+
+        <!-- Status Message -->
+        <div id="create-status" class="status"></div>
+      </div>
+
+      <!-- Right Card: List Notes -->
+      <div class="card">
+        <div class="list-header">
+          <h2>Notes for user</h2>
+          <span class="badge" id="notes-count">0 notes</span>
+        </div>
+
+        <div class="field">
+          <label for="user-id-list">User ID</label>
+          <input id="user-id-list" type="text" placeholder="e.g. scott" value="" />
+        </div>
+
+        <!-- Refresh Button -->
+        <div class="button-row">
+          <button class="btn-secondary" id="btn-refresh">⟳ Refresh notes</button>
+        </div>
+
+        <!-- Status Message -->
+        <div id="list-status" class="status"></div>
+
+        <!-- Notes List -->
+        <div class="notes-list" id="notes-list"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-name">Built by <strong>Scott Yang</strong></div>
+      <div class="footer-links">
+        <a href="https://github.com/soliscottude" target="_blank">GitHub</a>
+        <span>·</span>
+        <span>Serverless Notes App</span>
+      </div>
+      <div class="footer-year">© 2025</div>
+    </div>
+  </footer>
+
+  <!-- Main JS logic -->
+  <script src="app.js"></script>
+
+</body>
+</html>

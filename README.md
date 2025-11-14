@@ -1,33 +1,155 @@
 # 📝 Serverless Notes App
 
-This is a personal portfolio project to learn and practice **serverless architecture on AWS**.
+A fully serverless, cloud-native notes application built with AWS Lambda, API Gateway, DynamoDB, CloudFront, and S3.
 
-Planned stack:
-- AWS Lambda (Python)
-- Amazon DynamoDB
-- API Gateway (later)
-- Simple frontend (later)
+This project demonstrates a complete end-to-end serverless architecture, including backend logic, NoSQL database, API routing, and a fully deployed frontend.
 
 ---
 
-## ✅ Current backend status
+## 🚀 Live Demo
 
-- [x] DynamoDB table `notes` created  
-  - Partition key: `noteId` (String)
-- [x] IAM role `serverless-notes-lambda-role`  
-  - Can write/read DynamoDB and write CloudWatch logs
-- [x] Lambda function `serverless-notes-api`  
-  - Action `"create"`: write a note into DynamoDB  
-  - Action `"list"`: read all notes for a given `userId`
-- [ ] API Gateway HTTP endpoints
-- [ ] Frontend (web UI)
-- [ ] Auth / per-user security
+Frontend (CloudFront):
+
+https://dipmx1tgj1dm8.cloudfront.net/
+
+This is the deployed version of the application using S3 and CloudFront.
 
 ---
 
-## 🧪 Example test events (from Lambda console)
+## 📘 Overview
 
-### Create a note
+A beautifully designed single-page notes application that lets users:
+
+- Create notes
+
+- View notes (per user)
+
+- Persist data in DynamoDB
+
+- Trigger logic through API Gateway + Lambda
+
+- Use a fully deployed frontend served globally via CloudFront
+
+All components are serverless and scale automatically with zero maintenance.
+
+---
+
+## 🧠 Features
+
+- Create notes (action: "create")
+
+- List notes per user (action: "list")
+
+- DynamoDB for persistent storage
+
+- Lambda (Python) for backend business logic
+
+- HTTP API (API Gateway v2) as the API entry point
+
+- HTML/CSS/JavaScript frontend
+
+- Fully deployed using S3 + CloudFront
+
+- CORS-enabled for browser access
+
+---
+
+## 🧱 Tech Stack
+
+#### Backend:
+
+- AWS Lambda (Python 3.x)
+
+- API Gateway (HTTP API v2)
+
+- DynamoDB
+
+- IAM (least privilege)
+
+#### Frontend:
+
+- HTML
+
+- CSS
+
+- Vanilla JavaScript
+
+#### Hosting:
+
+Amazon S3
+
+Amazon CloudFront (CDN)
+
+---
+
+## 🗂 Project Structure
+```
+serverless-notes-app/
+├── lambda/
+│   └── notes_handler.py
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── README.md
+└── screenshots/
+```
+
+---
+
+## 🧩 Architecture
+
+```
+Browser (CloudFront URL)
+         │
+         ▼
+CloudFront (CDN)
+         │
+         ▼
+S3 Static Website Hosting
+         │
+         ▼
+Frontend JS fetches →
+API Gateway (HTTP API)
+         │
+         ▼
+AWS Lambda (Python)
+         │
+         ▼
+DynamoDB (notes table)
+```
+
+---
+
+## 📦 DynamoDB Schema
+
+#### Table name: notes
+
+#### Fields (all strings):
+
+- noteId — UUID (primary key)
+
+- userId — owner of the note
+
+- title — note title
+
+- content — note body
+
+- createdAt — ISO timestamp
+
+---
+
+## 🔌 Lambda API (Action-Based Routing)
+
+The application uses one HTTP endpoint:
+
+```
+POST /notes
+```
+
+and determines the operation based on the "action" field.
+
+#### Create a note
 
 ```json
 {
@@ -35,14 +157,14 @@ Planned stack:
   "body": {
     "userId": "scott",
     "title": "My first note",
-    "content": "Hello from Lambda & DynamoDB!"
+    "content": "Created via Lambda + DynamoDB"
   }
 }
 ```
 
-### List notes for one user
+#### List notes
 
-```
+```json
 {
   "action": "list",
   "body": {
@@ -51,12 +173,85 @@ Planned stack:
 }
 ```
 
+---
 
-### 📂 Code structure (so far)
+## 🖥 Local Frontend Usage
+
+To run the frontend locally:
+
 ```
-serverless-notes-app/
-  ├── lambda/
-  │   └── notes_handler.py   # Lambda code (create + list notes)
-  └── README.md
+cd frontend
+python3 -m http.server 8000
 ```
-I am building this project step by step and will use it as a real portfolio piece.
+
+Then open:
+```
+http://localhost:8000
+```
+
+The API URL is written directly inside app.js.
+
+---
+
+## 🌐 Deployment (S3 + CloudFront)
+
+This project is deployed using AWS S3 + CloudFront for global distribution.
+
+#### 1. S3 Hosting
+
+- Created a dedicated bucket
+
+- Enabled Static Website Hosting
+
+- Uploaded index.html, style.css, app.js
+
+- Added public-read bucket policy for GET access
+
+- Verified the website endpoint works
+
+#### 2. CloudFront Configuration
+
+- Origin: S3 website endpoint
+
+- Viewer Protocol Policy: Redirect HTTP → HTTPS
+
+- Default Root Object: index.html
+
+- Distribution name: serverless-notes-frontend
+
+- Output URL:
+https://dipmx1tgj1dm8.cloudfront.net/
+
+This forms a production-grade serverless deployment.
+
+---
+
+## 🧠 What I Learned
+
+- Designing a full serverless backend with Lambda
+
+- DynamoDB schema design and querying
+
+- API Gateway (HTTP API) configuration and CORS
+
+- Frontend → API integration
+
+- Hosting static websites on S3
+
+- Distributing globally with CloudFront
+
+- IAM role permissions for Lambda
+
+- Deploying a complete cloud application end-to-end
+
+---
+
+## 👨🏻‍💻 Author
+
+Scott Yang
+
+Cloud Support / DevOps Learner
+
+Auckland, New Zealand
+
+GitHub: https://github.com/soliscottude
